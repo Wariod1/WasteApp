@@ -12,7 +12,7 @@ public class ResidentActivity extends AppCompatActivity {
 
     private EditText editTextFullName, editTextPhoneNumber, editTextLocation;
     private Button buttonSubmit;
-    private DBHelper dbHelperg;
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
