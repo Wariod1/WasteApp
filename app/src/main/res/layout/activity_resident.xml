@@ -3,12 +3,23 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/btnRequest"
+        android:layout_height="wrap_content"
+        android:text="Request pickup"
+
+        />
+
     <EditText
         android:id="@+id/editTextFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name"
-        android:layout_alignParentTop="true" />
+        android:layout_below="@+id/btnRequest"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:hint="Full Name" />
 
     <EditText
         android:id="@+id/editTextPhoneNumber"

@@ -12,7 +12,7 @@ public class ResidentActivity extends AppCompatActivity {
 
     private EditText editTextFullName, editTextPhoneNumber, editTextLocation;
     private Button buttonSubmit;
-    private DBHelper dbHelperg;
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class ResidentActivity extends AppCompatActivity {
                     boolean isInserted = dbHelper.insertData(fullName, phoneNumber, location);
                     if (isInserted) {
                         Toast.makeText(ResidentActivity.this, "Request submitted successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ResidentActivity.this, ResidentActivity.class));
+                        startActivity(new Intent(ResidentActivity.this, Resdashboard.class));
                         finish();
                     } else {
                         Toast.makeText(ResidentActivity.this, "Request not submitted. Try again", Toast.LENGTH_SHORT).show();

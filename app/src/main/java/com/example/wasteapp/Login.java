@@ -65,7 +65,7 @@ public class Login extends AppCompatActivity {
                 if (role.equals("collector")) {
                     intent = new Intent(Login.this, Collector.class);
                 } else {
-                    intent = new Intent(Login.this, ResidentActivity.class);
+                    intent = new Intent(Login.this, Resdashboard.class);
                 }
                 startActivity(intent);
                 finish();  // Finish the current activity
