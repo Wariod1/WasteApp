@@ -16,14 +16,17 @@
         android:theme="@style/Theme.WasteApp"
         tools:targetApi="31">
         <activity
+            android:name=".ViewScheduleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddScheduleActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ResidentAcceptedRequestsActivity"
             android:exported="false" />
-        <activity
-            android:name=".schedule.Resident_schedule"
-            android:exported="false" />
-        <activity
-            android:name=".schedule.collector_schedule"
-            android:exported="false" />
+
+
         <activity
             android:name=".Resdashboard"
             android:exported="false" />
@@ -36,12 +39,7 @@
         <activity
             android:name=".ResidentActivity"
             android:exported="false" />
-        <activity
-            android:name=".CollectorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginAcivity"
-            android:exported="false" />
+
         <activity
             android:name=".SignUpActivity"
             android:exported="true">

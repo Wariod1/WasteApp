@@ -1,44 +1,54 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Resdashboard">
+    android:padding="16dp">
 
-    <Button
-        android:id="@+id/btnSchedule"
+    <TextView
+        android:id="@+id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="-10dp"
-        android:layout_marginTop="60dp"
-        android:text="Schedule"
-        android:textSize="18sp" />
+        android:text="Resident Dashboard"
+        android:background="#9FEC5B"
+        android:textSize="28sp"
+        android:layout_alignParentTop="true" />
 
     <Button
         android:id="@+id/btnPick"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSchedule"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="false"
-        android:layout_marginStart="-10dp"
-        android:layout_marginTop="20dp"
-        android:onClick="onRequest"
+        android:layout_below="@+id/textTitle"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
         android:text="Request Pickup"
+        android:textColor="#09CF11"
         android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnAcceptedRequests"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnPick"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="false"
-        android:layout_marginStart="-10dp"
         android:layout_marginTop="20dp"
-        android:text="View Accepted Requests"
+        android:text="Accepted Requests"
         android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnRequestStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnAcceptedRequests"
+        android:layout_marginTop="20dp"
+        android:text="Request Status"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnSchedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnRequestStatus"
+        android:layout_marginTop="20dp"
+        android:text="View Schedule"
+        android:textSize="18sp" />
+
 </RelativeLayout>

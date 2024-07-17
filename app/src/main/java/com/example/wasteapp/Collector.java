@@ -1,10 +1,12 @@
-// Collector.java
 package com.example.wasteapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +21,7 @@ public class Collector extends AppCompatActivity implements PersonAdapter.OnItem
     private PersonAdapter personAdapter;
     private RecyclerView recyclerView;
     private ArrayList<Person> personList;
+    private String collectorEmail = "collector@example.com"; // This should be dynamically set based on the logged-in collector
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,6 +37,16 @@ public class Collector extends AppCompatActivity implements PersonAdapter.OnItem
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             dbHelper = new DBHelper(this);
             displayData();
+
+            Button btnAddSchedule = findViewById(R.id.btnAddSchedule);
+            btnAddSchedule.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Collector.this, AddScheduleActivity.class);
+                    startActivity(intent);
+                }
+            });
+
         } catch (Exception e) {
             Log.e(TAG, "Error in onCreate: ", e);
             Toast.makeText(this, "An error occurred: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -50,7 +63,6 @@ public class Collector extends AppCompatActivity implements PersonAdapter.OnItem
                 Toast.makeText(this, "No requests available", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             personList = new ArrayList<>();
             while (res.moveToNext()) {
                 personList.add(new Person(
@@ -60,7 +72,6 @@ public class Collector extends AppCompatActivity implements PersonAdapter.OnItem
                         res.getString(3)
                 ));
             }
-
             personAdapter = new PersonAdapter(this, personList, this, true);
             recyclerView.setAdapter(personAdapter);
         } catch (Exception e) {
