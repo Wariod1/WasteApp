@@ -1,3 +1,4 @@
+// PersonAdapter.java
 package com.example.wasteapp.person;
 
 import android.content.Context;
@@ -11,41 +12,48 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wasteapp.R;
 import java.util.ArrayList;
 
-public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
-
+public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonViewHolder> {
     private Context context;
     private ArrayList<Person> personList;
     private OnItemClickListener listener;
+    private boolean showAcceptButton;
 
     public interface OnItemClickListener {
         void onAcceptClick(Person person);
     }
 
-    public PersonAdapter(Context context, ArrayList<Person> personList, OnItemClickListener listener) {
+    public PersonAdapter(Context context, ArrayList<Person> personList, OnItemClickListener listener, boolean showAcceptButton) {
         this.context = context;
         this.personList = personList;
         this.listener = listener;
+        this.showAcceptButton = showAcceptButton;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PersonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_person, parent, false);
-        return new ViewHolder(view);
+        return new PersonViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
         Person person = personList.get(position);
-        holder.textViewFullName.setText(person.getFullName());
-        holder.textViewPhoneNumber.setText(person.getPhoneNumber());
+        holder.textViewName.setText(person.getFullName());
+        holder.textViewPhone.setText(person.getPhoneNumber());
         holder.textViewLocation.setText(person.getLocation());
 
-        holder.buttonAccept.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onAcceptClick(person);
-            }
-        });
+        if (showAcceptButton) {
+            holder.buttonAccept.setVisibility(View.VISIBLE);
+            holder.buttonAccept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onAcceptClick(person);
+                }
+            });
+        } else {
+            holder.buttonAccept.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -53,14 +61,14 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         return personList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewFullName, textViewPhoneNumber, textViewLocation;
+    public static class PersonViewHolder extends RecyclerView.ViewHolder {
+        TextView textViewName, textViewPhone, textViewLocation;
         Button buttonAccept;
 
-        public ViewHolder(@NonNull View itemView) {
+        public PersonViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewFullName = itemView.findViewById(R.id.textViewFullName);
-            textViewPhoneNumber = itemView.findViewById(R.id.textViewPhoneNumber);
+            textViewName = itemView.findViewById(R.id.textViewFullName);
+            textViewPhone = itemView.findViewById(R.id.textViewPhoneNumber);
             textViewLocation = itemView.findViewById(R.id.textViewLocation);
             buttonAccept = itemView.findViewById(R.id.buttonAccept);
         }

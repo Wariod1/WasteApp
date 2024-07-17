@@ -1,3 +1,4 @@
+// DBHelper.java
 package com.example.wasteapp;
 
 import android.content.ContentValues;
@@ -67,40 +68,8 @@ public class DBHelper extends SQLiteOpenHelper {
         return result > 0;
     }
 
-    public String getRequestStatus(String id) {
+    public Cursor getResidentRequests(int residentId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + COL_5 + " FROM " + TABLE_NAME + " WHERE " + COL_1 + " = ?", new String[]{id});
-        if (cursor.moveToFirst()) {
-            String status = cursor.getString(0);
-            cursor.close();
-            return status;
-        }
-        cursor.close();
-        return null;
-    }
-
-    public String getLastInsertedId() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT last_insert_rowid()", null);
-        if (cursor.moveToFirst()) {
-            String id = cursor.getString(0);
-            cursor.close();
-            return id;
-        }
-        cursor.close();
-        return null;
-    }
-
-    // Method to delete a request
-    public boolean deleteRequest(String id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        int result = db.delete(TABLE_NAME, COL_1 + " = ?", new String[]{id});
-        return result > 0;
-    }
-
-    // Method to get all accepted requests
-    public Cursor getAllAcceptedRequests() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_5 + " = 'Accepted'", null);
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = ? AND " + COL_5 + " = 'Accepted'", new String[]{String.valueOf(residentId)});
     }
 }

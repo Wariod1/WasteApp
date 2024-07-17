@@ -1,3 +1,4 @@
+// Collector.java
 package com.example.wasteapp;
 
 import android.annotation.SuppressLint;
@@ -23,7 +24,7 @@ public class Collector extends AppCompatActivity implements PersonAdapter.OnItem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resident2);
+        setContentView(R.layout.activity_collector);
 
         try {
             recyclerView = findViewById(R.id.recyclerView);
@@ -60,7 +61,7 @@ public class Collector extends AppCompatActivity implements PersonAdapter.OnItem
                 ));
             }
 
-            personAdapter = new PersonAdapter(this, personList, this);
+            personAdapter = new PersonAdapter(this, personList, this, true);
             recyclerView.setAdapter(personAdapter);
         } catch (Exception e) {
             Log.e(TAG, "Error in displayData: ", e);

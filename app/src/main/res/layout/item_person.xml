@@ -70,6 +70,12 @@
                 android:text="Location"
                 android:layout_marginStart="8dp" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/textViewAcceptedDateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#16DD1E"/>
         <Button
             android:id="@+id/buttonAccept"
             android:layout_width="wrap_content"
