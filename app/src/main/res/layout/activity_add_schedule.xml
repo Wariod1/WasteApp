@@ -1,38 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp">
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" />
+        android:text="Select Date"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp" />
 
-    <EditText
-        android:id="@+id/timeEditText"
+    <Button
+        android:id="@+id/dateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Time (HH:MM)"
-        android:inputType="time"
+        android:layout_below="@id/dateTextView"
+        android:text="Select Date"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Time"
+        android:textSize="18sp"
+        android:layout_below="@id/dateButton"
+        android:layout_marginBottom="8dp" />
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timeTextView"
+        android:layout_marginBottom="16dp"
+        android:timePickerMode="spinner" />
+
+    <TextView
+        android:id="@+id/locationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Location"
+        android:textSize="18sp"
+        android:layout_below="@id/timePicker"
+        android:layout_marginBottom="8dp" />
+
+    <Spinner
+        android:id="@+id/locationSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationTextView"
+        android:layout_marginBottom="16dp"
         android:minHeight="48dp" />
 
-    <EditText
-        android:id="@+id/locationEditText"
+    <TextView
+        android:id="@+id/garbageTypeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Garbage Type"
+        android:textSize="18sp"
+        android:layout_below="@id/locationSpinner"
+        android:layout_marginBottom="8dp" />
+
+    <Spinner
+        android:id="@+id/garbageTypeSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Location"
-        android:inputType="text"
+        android:layout_below="@id/garbageTypeTextView"
+        android:layout_marginBottom="24dp"
         android:minHeight="48dp" />
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_below="@id/garbageTypeSpinner"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:minHeight="48dp"
+        android:minWidth="48dp"
+        android:padding="16dp"
         android:text="Save Schedule" />
 
-</LinearLayout>
+</RelativeLayout>

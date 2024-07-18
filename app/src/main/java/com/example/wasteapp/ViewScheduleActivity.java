@@ -1,5 +1,6 @@
 package com.example.wasteapp;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,11 +35,12 @@ public class ViewScheduleActivity extends AppCompatActivity {
         Cursor cursor = dbHelper.getAllSchedules();
         if (cursor.moveToFirst()) {
             do {
-                Schedule schedule = new Schedule(
-                        cursor.getString(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(3)
+                @SuppressLint("Range") Schedule schedule = new Schedule(
+                        cursor.getString(cursor.getColumnIndex("schedule_id")),
+                        cursor.getString(cursor.getColumnIndex("schedule_date")),
+                        cursor.getString(cursor.getColumnIndex("schedule_time")),
+                        cursor.getString(cursor.getColumnIndex("schedule_location")),
+                        cursor.getString(cursor.getColumnIndex("garbage_type"))
                 );
                 scheduleList.add(schedule);
             } while (cursor.moveToNext());

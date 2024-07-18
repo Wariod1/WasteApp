@@ -29,6 +29,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         holder.dateTextView.setText(schedule.getDate());
         holder.timeTextView.setText(schedule.getTime());
         holder.locationTextView.setText(schedule.getLocation());
+        holder.garbageTypeTextView.setText(schedule.getGarbageType());
     }
 
     @Override
@@ -40,12 +41,14 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         public TextView dateTextView;
         public TextView timeTextView;
         public TextView locationTextView;
+        public TextView garbageTypeTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             dateTextView = itemView.findViewById(R.id.dateTextView);
             timeTextView = itemView.findViewById(R.id.timeTextView);
             locationTextView = itemView.findViewById(R.id.locationTextView);
+            garbageTypeTextView = itemView.findViewById(R.id.garbageTypeTextView);
         }
     }
 }

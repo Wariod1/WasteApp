@@ -1,54 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#4CAF50">
 
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#4CAF50"
+        android:padding="8dp"
         android:text="Resident Dashboard"
-        android:background="#9FEC5B"
-        android:textSize="28sp"
-        android:layout_alignParentTop="true" />
+        android:textColor="#0D47A1"
+        android:textSize="28sp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textTitle"
-        android:gravity="center"
         android:layout_marginTop="40dp"
-        android:text="Request Pickup"
-        android:textColor="#09CF11"
-        android:textSize="18sp" />
+        android:text="Special Request"
+        android:textSize="18sp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="12dp"
+        app:iconTint="#FFFFFF"
+        app:iconPadding="8dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAcceptedRequests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnPick"
         android:layout_marginTop="20dp"
         android:text="Accepted Requests"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="12dp"
+        app:iconTint="#FFFFFF"
+        app:iconPadding="8dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRequestStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnAcceptedRequests"
         android:layout_marginTop="20dp"
         android:text="Request Status"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="12dp"
+        app:iconTint="#FFFFFF"
+        app:iconPadding="8dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSchedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnRequestStatus"
         android:layout_marginTop="20dp"
         android:text="View Schedule"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="12dp"
+        app:iconTint="#FFFFFF"
+        app:iconPadding="8dp" />
 
 </RelativeLayout>

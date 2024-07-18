@@ -9,47 +9,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Schedule"
-        android:background="#9FEC5B"
         android:textSize="28sp"
         android:layout_alignParentTop="true" />
-
-    <Button
-        android:id="@+id/btnRequests"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textSchedule"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
-        android:text="Here are the Requests"
-        android:textColor="#09CF11"
-        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnAddSchedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnRequests"
+        android:layout_below="@id/textSchedule"
         android:layout_marginTop="20dp"
         android:text="Add Schedule"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnRequests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnAddSchedule"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Here are the Requests"
+        android:textColor="#ECE9EF"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textViewDisplay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnAddSchedule"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="9dp"
-        android:text="Details will be displayed here"
+        android:layout_below="@id/btnRequests"
+        android:layout_marginTop="0dp"
+        android:text=""
         android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewDisplay"
+        android:layout_below="@id/textViewDisplay"
         android:padding="16dp" />
 
 </RelativeLayout>

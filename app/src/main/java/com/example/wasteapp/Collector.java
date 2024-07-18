@@ -91,7 +91,7 @@ public class Collector extends AppCompatActivity implements PersonAdapter.OnItem
     }
 
     private void acceptRequest(Person person) {
-        boolean isUpdated = dbHelper.updateRequestStatus(person.getId(), "Accepted");
+        boolean isUpdated = dbHelper.updateRequestStatus(Integer.parseInt(person.getId()), "Accepted");
         if (isUpdated) {
             Toast.makeText(this, "Request accepted", Toast.LENGTH_SHORT).show();
             personList.remove(person);

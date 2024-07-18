@@ -2,4 +2,30 @@
     <string name="app_name">WasteApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--<string name="select_garbage_type">Select Type of Garbage</string> -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string-array name="locations_array">
+        <item>Kajiado</item>
+        <item>Umma</item>
+        <item>Isinya</item>
+        <item>Kisaju</item>
+        <item>Birika</item>
+        <item>Kiserian</item>
+        <item>Rongai</item>
+        <item>Nairobi</item>
+        <item>Langata</item>
+
+    </string-array>
+
+    <!-- Spinner Prompt -->
+
+
+    <!-- Garbage Types -->
+    <string-array name="select_garbage_type">
+        <item>Plastic</item>
+        <item>Organic</item>
+        <item>Metal</item>
+    </string-array>
 </resources>
