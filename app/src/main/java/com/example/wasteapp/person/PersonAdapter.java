@@ -1,4 +1,3 @@
-// PersonAdapter.java
 package com.example.wasteapp.person;
 
 import android.content.Context;

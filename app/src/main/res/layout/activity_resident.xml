@@ -4,46 +4,72 @@
     android:padding="16dp">
 
     <Button
-        android:layout_width="wrap_content"
         android:id="@+id/btnRequest"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Request pickup"
-
-        />
+        android:text="Request pickup" />
 
     <EditText
         android:id="@+id/editTextFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnRequest"
-        android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
-        android:hint="Full Name" />
+        android:layout_below="@id/btnRequest"
+        android:layout_marginTop="16dp"
+        android:hint="Full Name"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/editTextPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/editTextFullName"
+        android:layout_marginTop="16dp"
         android:hint="Phone Number"
         android:inputType="phone"
-        android:layout_below="@id/editTextFullName"
-        android:layout_marginTop="16dp" />
+        android:minHeight="48dp" />
 
-    <EditText
-        android:id="@+id/editTextLocation"
+    <TextView
+        android:id="@+id/textViewSelectLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Location"
         android:layout_below="@id/editTextPhoneNumber"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:text="Select Location"
+        android:textSize="16sp"
+        android:textColor="@color/white" />
+
+    <Spinner
+        android:id="@+id/spinnerLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewSelectLocation"
+        android:layout_marginTop="8dp"
+        android:minHeight="48dp" />
+
+    <TextView
+        android:id="@+id/textViewSelectWasteType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerLocation"
+        android:layout_marginTop="16dp"
+        android:text="Select Waste Type"
+        android:textSize="16sp"
+        android:textColor="@color/white" />
+
+    <Spinner
+        android:id="@+id/spinnerWasteType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewSelectWasteType"
+        android:layout_marginTop="8dp"
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/buttonSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit"
-        android:layout_below="@id/editTextLocation"
+        android:layout_below="@id/spinnerWasteType"
         android:layout_marginTop="16dp" />
 
 </RelativeLayout>

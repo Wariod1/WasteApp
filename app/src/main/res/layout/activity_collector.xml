@@ -29,7 +29,6 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Here are the Requests"
-        android:textColor="#ECE9EF"
         android:textSize="18sp" />
 
     <TextView

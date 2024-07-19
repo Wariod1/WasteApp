@@ -26,7 +26,6 @@
             android:name=".ResidentAcceptedRequestsActivity"
             android:exported="false" />
 
-
         <activity
             android:name=".Resdashboard"
             android:exported="false" />
@@ -34,15 +33,15 @@
             android:name=".Collector"
             android:exported="false" />
         <activity
-            android:name=".Login"
-            android:exported="false" />
-        <activity
             android:name=".ResidentActivity"
             android:exported="false" />
 
-
         <activity
             android:name=".SignUpActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,5 +50,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

@@ -1,8 +1,8 @@
-// ResidentAcceptedRequestsActivity.java
 package com.example.wasteapp;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,23 +30,28 @@ public class ResidentAcceptedRequestsActivity extends AppCompatActivity {
     }
 
     private void displayData() {
-        Cursor res = dbHelper.getResidentRequests(residentId);
-        if (res.getCount() == 0) {
-            Toast.makeText(this, "No accepted requests available", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        try {
+            Cursor res = dbHelper.getResidentRequests(residentId);
+            if (res.getCount() == 0) {
+                Toast.makeText(this, "No accepted requests available", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        personList = new ArrayList<>();
-        while (res.moveToNext()) {
-            personList.add(new Person(
-                    res.getString(0),
-                    res.getString(1),
-                    res.getString(2),
-                    res.getString(3)
-            ));
-        }
+            personList = new ArrayList<>();
+            while (res.moveToNext()) {
+                personList.add(new Person(
+                        res.getString(res.getColumnIndexOrThrow(DBHelper.COL_PERSON_ID)),
+                        res.getString(res.getColumnIndexOrThrow(DBHelper.COL_FULL_NAME)),
+                        res.getString(res.getColumnIndexOrThrow(DBHelper.COL_PHONE_NUMBER)),
+                        res.getString(res.getColumnIndexOrThrow(DBHelper.COL_LOCATION))
+                ));
+            }
 
-        personAdapter = new PersonAdapter(this, personList, null, false);
-        recyclerView.setAdapter(personAdapter);
+            personAdapter = new PersonAdapter(this, personList, null, false);
+            recyclerView.setAdapter(personAdapter);
+        } catch (Exception e) {
+            Log.e("ResidentAcceptedRequestsActivity", "Error displaying data", e);
+            Toast.makeText(this, "Error displaying data", Toast.LENGTH_SHORT).show();
+        }
     }
 }

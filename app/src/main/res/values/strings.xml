@@ -21,11 +21,16 @@
 
     <!-- Spinner Prompt -->
 
-
+    <string-array name="waste_types_array">
+        <item>Organic</item>
+        <item>Recyclable</item>
+        <item>Hazardous</item>
+        <!-- Add more waste types as needed -->
+    </string-array>
     <!-- Garbage Types -->
     <string-array name="select_garbage_type">
-        <item>Plastic</item>
+        <item>Recyclable</item>
         <item>Organic</item>
-        <item>Metal</item>
+        <item>Hazardous</item>
     </string-array>
 </resources>
