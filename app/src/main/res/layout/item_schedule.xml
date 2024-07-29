@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    cardView:cardCornerRadius="8dp"
-    cardView:cardElevation="4dp">
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,20 +19,20 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:paddingBottom="8dp">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_person"
-                android:contentDescription="Full Name Icon" />
+                android:src="@drawable/ic_calendar" />
 
             <TextView
-                android:id="@+id/textViewFullName"
+                android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Full Name"
-                android:layout_marginStart="8dp" />
+                android:layout_marginStart="8dp"
+                android:text="Date"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
         <LinearLayout
@@ -39,20 +40,20 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:paddingBottom="8dp">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_phone"
-                android:contentDescription="Phone Number Icon" />
+                android:src="@drawable/ic_clock" />
 
             <TextView
-                android:id="@+id/textViewPhoneNumber"
+                android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone Number"
-                android:layout_marginStart="8dp" />
+                android:layout_marginStart="8dp"
+                android:text="Time"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
         <LinearLayout
@@ -60,58 +61,42 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:paddingBottom="8dp">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_location"
-                android:contentDescription="Location Icon" />
+                android:src="@drawable/ic_location" />
 
             <TextView
-                android:id="@+id/textViewLocation"
+                android:id="@+id/tvLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:text="Location"
-                android:layout_marginStart="8dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
-        <!-- New section for Waste Type -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:paddingBottom="8dp">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_waste"
-                android:contentDescription="Waste Type Icon" />
+                android:src="@drawable/ic_trash" />
 
             <TextView
-                android:id="@+id/textViewWasteType"
+                android:id="@+id/tvWasteType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:text="Waste Type"
-                android:layout_marginStart="8dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textViewAcceptedDateTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="Pending"
-            android:textColor="#16DD1E"/>
-
-        <Button
-            android:id="@+id/buttonAccept"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Accept"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

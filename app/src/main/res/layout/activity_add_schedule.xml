@@ -1,86 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Date"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp" />
-
-    <Button
-        android:id="@+id/dateButton"
+    <EditText
+        android:id="@+id/etDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dateTextView"
-        android:text="Select Date"
-        android:layout_marginBottom="16dp"/>
+        android:focusable="false"
+        android:hint="Date"
+        android:minHeight="48dp" />
 
-    <TextView
-        android:id="@+id/timeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Time"
-        android:textSize="18sp"
-        android:layout_below="@id/dateButton"
-        android:layout_marginBottom="8dp" />
-
-    <TimePicker
-        android:id="@+id/timePicker"
+    <EditText
+        android:id="@+id/etTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/timeTextView"
-        android:layout_marginBottom="16dp"
-        android:timePickerMode="spinner" />
+        android:focusable="false"
+        android:hint="Time"
+        android:minHeight="48dp" />
 
     <TextView
-        android:id="@+id/locationTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvSelectLocation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select Location"
-        android:textSize="18sp"
-        android:layout_below="@id/timePicker"
-        android:layout_marginBottom="8dp" />
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Spinner
-        android:id="@+id/locationSpinner"
+        android:id="@+id/spLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/locationTextView"
-        android:layout_marginBottom="16dp"
+        android:entries="@array/locations"
         android:minHeight="48dp" />
 
     <TextView
-        android:id="@+id/garbageTypeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Garbage Type"
-        android:textSize="18sp"
-        android:layout_below="@id/locationSpinner"
-        android:layout_marginBottom="8dp" />
-
-    <Spinner
-        android:id="@+id/garbageTypeSpinner"
+        android:id="@+id/tvSelectWasteType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/garbageTypeTextView"
-        android:layout_marginBottom="24dp"
+        android:text="Select Waste Type"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spWasteType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/waste_types"
         android:minHeight="48dp" />
 
     <Button
-        android:id="@+id/saveButton"
+        android:id="@+id/btnAddSchedule"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/garbageTypeSpinner"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="16dp"
-        android:minHeight="48dp"
-        android:minWidth="48dp"
-        android:padding="16dp"
-        android:text="Save Schedule" />
-
-</RelativeLayout>
+        android:text="Add Schedule"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

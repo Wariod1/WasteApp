@@ -5,17 +5,8 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Scheduled Pickups"
-        android:textSize="24sp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"/>
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scheduleRecyclerView"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="match_parent"/>
 </LinearLayout>

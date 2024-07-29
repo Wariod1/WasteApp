@@ -1,26 +1,26 @@
 package com.example.wasteapp;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "People.db";
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 9; // Increment the database version
     public static final String TABLE_NAME = "people_table";
     public static final String COL_PERSON_ID = "ID";
     public static final String COL_FULL_NAME = "FULLNAME";
     public static final String COL_PHONE_NUMBER = "PHONENUMBER";
     public static final String COL_LOCATION = "LOCATION";
     public static final String COL_STATUS = "STATUS";
-
-    private static final String TABLE_SCHEDULE = "schedule_table";
-    private static final String SCHEDULE_ID = "ID";
-    private static final String SCHEDULE_DATE = "DATE";
-    private static final String SCHEDULE_TIME = "TIME";
-    private static final String SCHEDULE_LOCATION = "LOCATION";
+    public static final String COL_ROLE = "ROLE";
+    public static final String COL_WASTE_TYPE = "WASTE_TYPE";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -28,78 +28,92 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableQuery = "CREATE TABLE " + TABLE_NAME + " (" +
-                COL_PERSON_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL_FULL_NAME + " TEXT, " +
-                COL_PHONE_NUMBER + " TEXT, " +
-                COL_LOCATION + " TEXT, " +
-                COL_STATUS + " TEXT)";
+        String createTableQuery = "CREATE TABLE " + TABLE_NAME + " ("
+                + COL_PERSON_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_FULL_NAME + " TEXT, "
+                + COL_PHONE_NUMBER + " TEXT, "
+                + COL_LOCATION + " TEXT, "
+                + COL_STATUS + " TEXT, "
+                + COL_ROLE + " TEXT DEFAULT 'User', "
+                + COL_WASTE_TYPE + " TEXT)";
         db.execSQL(createTableQuery);
-
-        String createScheduleTable = "CREATE TABLE " + TABLE_SCHEDULE + " (" +
-                SCHEDULE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                SCHEDULE_DATE + " TEXT, " +
-                SCHEDULE_TIME + " TEXT, " +
-                SCHEDULE_LOCATION + " TEXT)";
-        db.execSQL(createScheduleTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) {
-            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_STATUS + " TEXT DEFAULT 'Pending'");
+        if (oldVersion < 5) {
+            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_ROLE + " TEXT DEFAULT 'User'");
         }
-        if (oldVersion < 3) {
-            String createScheduleTable = "CREATE TABLE " + TABLE_SCHEDULE + " (" +
-                    SCHEDULE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    SCHEDULE_DATE + " TEXT, " +
-                    SCHEDULE_TIME + " TEXT, " +
-                    SCHEDULE_LOCATION + " TEXT)";
-            db.execSQL(createScheduleTable);
+        if (oldVersion < 6) {
+            if (!columnExists(db, TABLE_NAME, COL_WASTE_TYPE)) {
+                db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WASTE_TYPE + " TEXT");
+            }
         }
     }
 
-    public boolean insertData(String name, String fullName, String phoneNumber, String location) {
+    private boolean columnExists(SQLiteDatabase db, String tableName, String columnName) {
+        Cursor cursor = db.rawQuery("PRAGMA table_info(" + tableName + ")", null);
+        int nameIndex = cursor.getColumnIndex("name");
+        while (cursor.moveToNext()) {
+            if (cursor.getString(nameIndex).equals(columnName)) {
+                cursor.close();
+                return true;
+            }
+        }
+        cursor.close();
+        return false;
+    }
+
+    public Cursor getAllPendingRequests() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TABLE_NAME, new String[]{
+                COL_PERSON_ID,
+                COL_FULL_NAME,
+                COL_PHONE_NUMBER,
+                COL_LOCATION,
+                COL_WASTE_TYPE
+        }, COL_STATUS + " = ? OR " + COL_STATUS + " IS NULL", new String[]{"Pending"}, null, null, null);
+    }
+
+    public boolean updateRequestStatus(String id, String status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_STATUS, status);
+        int result = db.update(TABLE_NAME, contentValues, COL_PERSON_ID + " = ?", new String[]{id});
+        return result > 0;
+    }
+
+    public Cursor getAllAcceptedRequests() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_STATUS + "='Accepted' ORDER BY " + COL_PERSON_ID + " DESC", null);
+    }
+    @SuppressLint("Range")
+    public ArrayList<String> getAllResidentTokens() {
+        ArrayList<String> tokens = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT token FROM residents", null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                tokens.add(cursor.getString(cursor.getColumnIndex("token")));
+            } while (cursor.moveToNext());
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+        return tokens;
+    }
+
+
+    public boolean insertRequest(String fullName, String phoneNumber, String location, String wasteType) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_FULL_NAME, fullName);
         contentValues.put(COL_PHONE_NUMBER, phoneNumber);
         contentValues.put(COL_LOCATION, location);
         contentValues.put(COL_STATUS, "Pending");
+        contentValues.put(COL_ROLE, "User");
+        contentValues.put(COL_WASTE_TYPE, wasteType);
         long result = db.insert(TABLE_NAME, null, contentValues);
         return result != -1;
-    }
-
-    public Cursor getAllPendingRequests() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_STATUS + " = 'Pending' OR " + COL_STATUS + " IS NULL", null);
-    }
-
-    public boolean updateRequestStatus(int id, String status) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_STATUS, status);
-        int result = db.update(TABLE_NAME, contentValues, COL_PERSON_ID + " = ?", new String[]{String.valueOf(id)});
-        return result > 0;
-    }
-
-    public Cursor getResidentRequests(int residentId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_PERSON_ID + " = ? AND " + COL_STATUS + " = 'Accepted'", new String[]{String.valueOf(residentId)});
-    }
-
-    public boolean insertSchedule(String selectedDate, String date, String time, String location) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(SCHEDULE_DATE, date);
-        contentValues.put(SCHEDULE_TIME, time);
-        contentValues.put(SCHEDULE_LOCATION, location);
-        long result = db.insert(TABLE_SCHEDULE, null, contentValues);
-        return result != -1;
-    }
-
-    public Cursor getAllSchedules() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_SCHEDULE, null);
     }
 }

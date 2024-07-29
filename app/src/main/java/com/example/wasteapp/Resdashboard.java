@@ -1,12 +1,12 @@
 package com.example.wasteapp;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class Resdashboard extends AppCompatActivity {
+public class ResDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,27 +16,44 @@ public class Resdashboard extends AppCompatActivity {
         pickup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Resdashboard.this, ResidentActivity.class);
+                Intent intent = new Intent(ResDashboard.this, ResidentActivity.class);
                 startActivity(intent);
             }
         });
 
-        Button acceptedRequests = findViewById(R.id.btnAcceptedRequests);
-        acceptedRequests.setOnClickListener(new View.OnClickListener() {
+        Button viewScheduleButton = findViewById(R.id.btnViewSchedule);
+        viewScheduleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Resdashboard.this, ResidentAcceptedRequestsActivity.class);
+                Intent intent = new Intent(ResDashboard.this, ViewScheduleActivity.class);
                 startActivity(intent);
             }
         });
 
-        Button viewSchedule = findViewById(R.id.btnSchedule);
-        viewSchedule.setOnClickListener(new View.OnClickListener() {
+        Button backButton = findViewById(R.id.btnBack);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Resdashboard.this, ViewScheduleActivity.class);
+                Intent intent = new Intent(ResDashboard.this, Login.class); // Assuming LoginActivity is your login screen
                 startActivity(intent);
+                finish(); // Finish current activity to prevent returning to it on back press
             }
         });
+        Button viewAcceptedRequestsButton = findViewById(R.id.btnViewAcceptedRequests);
+        viewAcceptedRequestsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ResDashboard.this, AcceptedRequestsActivity.class));
+            }
+        });
+
+        Button btnViewPrice = findViewById(R.id.btnViewPrice);
+        btnViewPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ResDashboard.this, MainActivity.class));
+            }
+        });
+
     }
 }

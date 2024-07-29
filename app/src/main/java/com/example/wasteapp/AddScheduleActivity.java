@@ -1,126 +1,117 @@
 package com.example.wasteapp;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class AddScheduleActivity extends AppCompatActivity {
-    private TimePicker timePicker;
-    private Spinner locationSpinner, garbageTypeSpinner;
-    private Button saveButton, dateButton;
-    private DBHelper dbHelper;
-    private String selectedDate;
-    private Calendar calendar;
+    private ScheduleDBHelper scheduleDBHelper;
+    private EditText etDate, etTime;
+    private Spinner spLocation, spWasteType;
+    private Button btnAddSchedule;
+    private Calendar selectedDateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
 
-        dbHelper = new DBHelper(this);
+        scheduleDBHelper = new ScheduleDBHelper(this);
+        etDate = findViewById(R.id.etDate);
+        etTime = findViewById(R.id.etTime);
+        spLocation = findViewById(R.id.spLocation);
+        spWasteType = findViewById(R.id.spWasteType);
+        btnAddSchedule = findViewById(R.id.btnAddSchedule);
+        selectedDateTime = Calendar.getInstance();
 
-        timePicker = findViewById(R.id.timePicker);
-        locationSpinner = findViewById(R.id.locationSpinner);
-        garbageTypeSpinner = findViewById(R.id.garbageTypeSpinner);
-        saveButton = findViewById(R.id.saveButton);
-        dateButton = findViewById(R.id.dateButton);
-
-        calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        selectedDate = dateFormat.format(calendar.getTime());
-
-        dateButton.setText(selectedDate);
-
-        dateButton.setOnClickListener(new View.OnClickListener() {
+        etDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AddScheduleActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                calendar.set(year, month, dayOfMonth);
-                                selectedDate = dateFormat.format(calendar.getTime());
-                                dateButton.setText(selectedDate);
-                            }
-                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); // Disallow past dates
-                datePickerDialog.show();
+                showDatePickerDialog();
             }
         });
 
-        // Populate location Spinner
-        ArrayAdapter<CharSequence> locationAdapter = ArrayAdapter.createFromResource(
-                this, R.array.locations_array, android.R.layout.simple_spinner_item);
-        locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        locationSpinner.setAdapter(locationAdapter);
+        etTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog();
+            }
+        });
 
-        // Populate garbage type Spinner
-        ArrayAdapter<CharSequence> garbageTypeAdapter = ArrayAdapter.createFromResource(
-                this, R.array.select_garbage_type, android.R.layout.simple_spinner_item);
-        garbageTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        garbageTypeSpinner.setAdapter(garbageTypeAdapter);
+        btnAddSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String date = etDate.getText().toString();
+                String time = etTime.getText().toString();
+                String location = spLocation.getSelectedItem().toString();
+                String wasteType = spWasteType.getSelectedItem().toString();
 
-        // Remove the analog clock from TimePicker
-        try {
-            View timePickerView = timePicker.getChildAt(0);
-            if (timePickerView instanceof ViewGroup) {
-                ViewGroup viewGroup = (ViewGroup) timePickerView;
-                View firstChild = viewGroup.getChildAt(0);
-                if (firstChild instanceof ViewGroup) {
-                    ViewGroup viewGroupChild = (ViewGroup) firstChild;
-                    View secondChild = viewGroupChild.getChildAt(0);
-                    if (secondChild instanceof EditText) {
-                        secondChild.setVisibility(View.GONE);
+                if (date.isEmpty() || time.isEmpty() || location.isEmpty() || wasteType.isEmpty()) {
+                    Toast.makeText(AddScheduleActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                } else if (isPastDateTime()) {
+                    Toast.makeText(AddScheduleActivity.this, "Cannot select a past date and time", Toast.LENGTH_SHORT).show();
+                } else {
+                    boolean isInserted = scheduleDBHelper.insertSchedule(date, time, location, wasteType);
+                    if (isInserted) {
+                        Toast.makeText(AddScheduleActivity.this, "Schedule added successfully", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(AddScheduleActivity.this, "Failed to add schedule", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int hour = timePicker.getCurrentHour();
-                int minute = timePicker.getCurrentMinute();
-                calendar.set(Calendar.HOUR_OF_DAY, hour);
-                calendar.set(Calendar.MINUTE, minute);
-                String time = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
-
-                if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
-                    Toast.makeText(AddScheduleActivity.this, "Please select a future date and time", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                String location = locationSpinner.getSelectedItem().toString();
-                String garbageType = garbageTypeSpinner.getSelectedItem().toString();
-
-                if (location.isEmpty() || garbageType.isEmpty()) {
-                    Toast.makeText(AddScheduleActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (dbHelper.insertSchedule(selectedDate, time, location, garbageType)) {
-                    Toast.makeText(AddScheduleActivity.this, "Schedule added successfully", Toast.LENGTH_SHORT).show();
-                    finish();
-                } else {
-                    Toast.makeText(AddScheduleActivity.this, "Failed to add schedule", Toast.LENGTH_SHORT).show();
-                }
-            }
         });
+    }
+
+    private void showDatePickerDialog() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        selectedDateTime.set(Calendar.YEAR, year);
+                        selectedDateTime.set(Calendar.MONTH, monthOfYear);
+                        selectedDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        etDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                    }
+                }, year, month, day);
+        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis()); // Set minimum date to today
+        datePickerDialog.show();
+    }
+
+    private void showTimePickerDialog() {
+        final Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        selectedDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        selectedDateTime.set(Calendar.MINUTE, minute);
+                        etTime.setText(String.format("%02d:%02d", hourOfDay, minute));
+                    }
+                }, hour, minute, true);
+        timePickerDialog.show();
+    }
+
+    private boolean isPastDateTime() {
+        Calendar currentDateTime = Calendar.getInstance();
+        return selectedDateTime.before(currentDateTime);
     }
 }

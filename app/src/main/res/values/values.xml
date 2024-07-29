@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Styles -->
+    <style name="CalendarTextAppearance">1</style>
+
+    <!-- Strings -->
+    <string name="app_name">WasteApp</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- String Arrays -->
+    <string-array name="locations_array">
+        <item>Kajiado</item>
+        <item>Umma</item>
+        <item>Isinya</item>
+        <item>Kisaju</item>
+        <item>Birika</item>
+        <item>Kiserian</item>
+        <item>Rongai</item>
+        <item>Nairobi</item>
+        <item>Langata</item>
+    </string-array>
+
+    <string-array name="waste_types_array">
+        <item>Organic</item>
+        <item>Recyclable</item>
+        <item>Hazardous</item>
+        <!-- Add more waste types as needed -->
+    </string-array>
+
+    <string-array name="role_array">
+        <item>collector</item>
+        <item>resident</item>
+    </string-array>
+
+
+    <string-array name="locations">
+        <item>Kajiado</item>
+        <item>Umma</item>
+        <item>Isinya</item>
+        <item>Kisaju</item>
+        <item>Birika</item>
+        <item>Kiserian</item>
+        <item>Rongai</item>
+        <item>Nairobi</item>
+        <item>Langata</item>
+    </string-array>
+    <string-array name="waste_types">
+        <item>Organic</item>
+        <item>Recyclable</item>
+        <item>Hazardous</item>
+
+    </string-array>
+
+    <!-- Colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!-- Ensure no conflicting or duplicated resources -->
+    <!-- Placeholder for other resources -->
+
+</resources>

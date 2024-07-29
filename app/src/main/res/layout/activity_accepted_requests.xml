@@ -1,21 +1,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textAcceptedRequests"
+        android:id="@+id/textAcceptedTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Accepted Requests"
-        android:background="#9FEC5B"
-        android:textSize="28sp"
-        android:layout_alignParentTop="true" />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewAccepted"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textAcceptedRequests"
-        android:padding="16dp" />
+        android:layout_below="@id/textAcceptedTitle"/>
 </RelativeLayout>

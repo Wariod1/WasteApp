@@ -26,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
 
         editUsername = findViewById(R.id.editText_username);
-       tvLogin = findViewById(R.id.tvLogin);
+        tvLogin = findViewById(R.id.tvLogin);
         editEmail = findViewById(R.id.editText_email);
         editPassword = findViewById(R.id.editText_password);
         editConfirmPassword = findViewById(R.id.editText_confirm_password);

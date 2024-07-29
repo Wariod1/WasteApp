@@ -1,7 +1,9 @@
 package com.example.wasteapp;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,6 +60,8 @@ public class Login extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(Login.this, "All fields are required", Toast.LENGTH_SHORT).show();
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(Login.this, "Invalid email format", Toast.LENGTH_SHORT).show();
         } else {
             boolean isValid = myDb.checkUser(email, password, role);
             if (isValid) {
@@ -65,7 +69,7 @@ public class Login extends AppCompatActivity {
                 if (role.equals("collector")) {
                     intent = new Intent(Login.this, Collector.class);
                 } else {
-                    intent = new Intent(Login.this, Resdashboard.class);
+                    intent = new Intent(Login.this, ResDashboard.class);
                 }
                 startActivity(intent);
                 finish();  // Finish the current activity

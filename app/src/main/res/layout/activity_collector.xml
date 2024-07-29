@@ -1,50 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textSchedule"
+        android:id="@+id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Schedule"
-        android:textSize="28sp"
-        android:layout_alignParentTop="true" />
+        android:text="Collector Dashboard"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnAddSchedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textSchedule"
-        android:layout_marginTop="20dp"
-        android:text="Add Schedule"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/btnRequests"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnAddSchedule"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="Here are the Requests"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/textViewDisplay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnRequests"
-        android:layout_marginTop="0dp"
-        android:text=""
-        android:textSize="18sp" />
+        android:layout_below="@id/textTitle"
+        android:layout_marginTop="16dp"
+        android:text="Add Schedule" />
+
+    <Button
+        android:id="@+id/btnViewAccepted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnAddSchedule"
+        android:layout_marginTop="16dp"
+        android:text="View Accepted Requests" />
+
+    <Button
+        android:id="@+id/btnAddPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnViewAccepted"
+        android:layout_marginTop="16dp"
+        android:text="Add Price for services" />
+
+    <Button
+        android:id="@+id/btnGenerateReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnAddPrice"
+        android:layout_marginTop="16dp"
+        android:text="Generate Report" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnGenerateReport"
+        android:layout_marginTop="16dp"
+        android:text="Back to Login" />
+
+    <TextView
+        android:id="@+id/textPendingRequests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnBack"
+        android:layout_marginTop="16dp"
+        android:text="These are pending requests"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewDisplay"
-        android:padding="16dp" />
-
+        android:layout_height="0dp"
+        android:layout_below="@id/textPendingRequests"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="1" />
 </RelativeLayout>
